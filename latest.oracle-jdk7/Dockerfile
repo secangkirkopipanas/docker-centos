@@ -9,12 +9,14 @@ ENV BUILD_VERSION b15
 RUN \
 	echo "### Upgrade and install additional softwares" && \
 	yum -y upgrade && \
-    yum -y install nano wget zip telnet
+    yum -y install nano wget zip telnet && \
+	yum clean all
 
 # Downloading Java
 RUN \
 	wget --no-cookies --no-check-certificate --header "Cookie: oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/$JAVA_VERSION-$BUILD_VERSION/jdk-$JAVA_VERSION-linux-x64.rpm" -O /tmp/jdk-7-linux-x64.rpm && \
 	yum -y install /tmp/jdk-7-linux-x64.rpm && \
+	yum clean all && \
 	rm -fR /tmp/jdk-7-linux-x64.rpm
 
 # Configure alternatives
